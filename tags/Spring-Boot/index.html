@@ -29,131 +29,95 @@
       switchTab();
       window.addEventListener('hashchange', switchTab, false);
   })();
-  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/tech/"><img src="/tech/img/logo.svg" alt="Hexo" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/tech/">Home</a><a class="navbar-item" href="/tech/archives">Archives</a><a class="navbar-item" href="/tech/categories">Categories</a><a class="navbar-item" href="/tech/tags">Tags</a><a class="navbar-item" href="/tech/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item search" title="Search" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><div class="card-content"><nav class="breadcrumb" aria-label="breadcrumbs"><ul><li><a href="/tech/tags/">Tags</a></li><li class="is-active"><a href="#" aria-current="page">Spring Boot</a></li></ul></nav></div></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item">Posted&nbsp;<time dateTime="2025-05-18T11:35:48.000Z" title="5/18/2025, 7:35:48 PM">2025-05-18</time></span><span class="level-item">Updated&nbsp;<time dateTime="2025-05-18T11:46:10.159Z" title="5/18/2025, 7:46:10 PM">2025-05-18</time></span><span class="level-item">7 minutes read (About 1079 words)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/tech/2025/05/18/Java-CircuitBreaker/">Java CircuitBreaker 斷路器機制全解析與實戰</a></p><div class="content"><h1 id="CircuitBreaker-斷路器設計原理"><a href="#CircuitBreaker-斷路器設計原理" class="headerlink" title="CircuitBreaker 斷路器設計原理"></a>CircuitBreaker 斷路器設計原理</h1><p>在分散式系統或微服務架構中，**斷路器（CircuitBreaker）**是一種保護機制，能即時阻斷異常服務的連鎖失敗，防止雪崩效應，提升系統穩定性。</p>
-<h2 id="狀態說明"><a href="#狀態說明" class="headerlink" title="狀態說明"></a>狀態說明</h2><p>CircuitBreaker 通常分為三種<strong>正常狀態</strong>：</p>
-<ul>
-<li><code>CLOSED</code>（關閉）：正常通過，監控錯誤率。</li>
-<li><code>OPEN</code>（開啟）：發現異常，短路後續請求。</li>
-<li><code>HALF_OPEN</code>（半開）：進入觀察，部分請求放行檢查服務恢復狀態。</li>
-</ul>
-<p>也有三種<strong>特殊狀態</strong>：</p>
-<ul>
-<li><code>METRICS_ONLY</code>：僅記錄統計資訊。</li>
-<li><code>DISABLED</code>：完全停用斷路器。</li>
-<li><code>FORCED_OPEN</code>：強制開啟，全部短路。</li>
-</ul>
-<h2 id="狀態切換機制"><a href="#狀態切換機制" class="headerlink" title="狀態切換機制"></a>狀態切換機制</h2><p>斷路器會根據滑動視窗（Sliding Window）的統計數據切換狀態。滑動視窗分為兩種型態：</p>
-<ul>
-<li><strong>計數型（Count-based）</strong>：統計最近 N 筆呼叫結果。</li>
-<li><strong>時間型（Time-based）</strong>：統計最近 N 毫秒內呼叫結果。</li>
-</ul>
-<p>每當滑動視窗內的<strong>失敗率</strong>或<strong>慢呼叫率</strong>超過設定閾值，斷路器就會切換為 <code>OPEN</code>，直接拒絕後續請求（拋出 <code>CallNotPermittedException</code>）。</p>
-<blockquote>
-<p><strong>注意：</strong> CircuitBreaker 並不會限制同時有多少請求進行。假如同時有 20 個執行緒呼叫函式，即使滑動視窗大小為 15，這 20 個請求都會通過。<strong>如果你要限制同時執行數量，請結合 Bulkhead 使用。</strong></p>
-</blockquote>
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/tech/"><img src="/tech/img/logo.svg" alt="Hexo" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/tech/">Home</a><a class="navbar-item" href="/tech/archives">Archives</a><a class="navbar-item" href="/tech/categories">Categories</a><a class="navbar-item" href="/tech/tags">Tags</a><a class="navbar-item" href="/tech/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item search" title="Search" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><div class="card-content"><nav class="breadcrumb" aria-label="breadcrumbs"><ul><li><a href="/tech/tags/">Tags</a></li><li class="is-active"><a href="#" aria-current="page">Spring Boot</a></li></ul></nav></div></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item">Posted&nbsp;<time dateTime="2025-05-18T11:35:48.000Z" title="5/18/2025, 7:35:48 PM">2025-05-18</time></span><span class="level-item">Updated&nbsp;<time dateTime="2025-05-20T15:02:51.757Z" title="5/20/2025, 11:02:51 PM">2025-05-20</time></span><span class="level-item">6 minutes read (About 854 words)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/tech/2025/05/18/Java-CircuitBreaker/">Resilience4j Bulkhead 隔艙機制全解析與實戰</a></p><div class="content"><h1 id="Resilience4j-Bulkhead-隔艙-—-守護系統穩定的關鍵"><a href="#Resilience4j-Bulkhead-隔艙-—-守護系統穩定的關鍵" class="headerlink" title="Resilience4j Bulkhead 隔艙 — 守護系統穩定的關鍵"></a>Resilience4j Bulkhead 隔艙 — 守護系統穩定的關鍵</h1><p>隔艙（Bulkhead）源自航海術語，用來將船體分隔成多個艙室，防止某處進水而沉沒。在軟體系統中，我們也可以透過「隔艙機制」，將功能或資源切分，避免故障或資源耗盡時，整體系統「沉沒」。本文將從隔艙的三大目的說起，帶你瞭解 Resilience4j 的兩種 Bulkhead 實作，並示範在 Spring Boot 中快速上手。</p>
+<h2 id="一、隔艙的三大目的"><a href="#一、隔艙的三大目的" class="headerlink" title="一、隔艙的三大目的"></a>一、隔艙的三大目的</h2><ol>
+<li><p><strong>隔離故障</strong><br>將系統資源劃分成多個「艙室」，當某個區域出問題時，不會蔓延到其他區域，確保整體可用性。</p>
+</li>
+<li><p><strong>限制併發</strong><br>為特定功能設定最大併發數；當達到上限後，請求要麼等待、要麼直接拋出例外，避免線程被長時間佔用。</p>
+</li>
+<li><p><strong>保護資源不被耗盡</strong><br>防止某段程式碼耗盡整體線程或連線池，導致所有服務癱瘓。通常會與斷路器（Circuit Breaker）、限流器（Rate Limiter）等容錯機制配合，提升系統穩定度。</p>
+</li>
+</ol>
 <hr>
-<h1 id="執行緒安全設計"><a href="#執行緒安全設計" class="headerlink" title="執行緒安全設計"></a>執行緒安全設計</h1><ul>
-<li>狀態變更透過 <code>AtomicReference</code> 原子操作，確保 thread-safe。</li>
-<li>滑動視窗的寫入／讀取有同步控制，避免狀態競爭與數據錯亂。</li>
-<li>只有一個執行緒能變更狀態或滑動視窗。</li>
-</ul>
-<hr>
-<h1 id="CircuitBreaker-常用設定說明"><a href="#CircuitBreaker-常用設定說明" class="headerlink" title="CircuitBreaker 常用設定說明"></a>CircuitBreaker 常用設定說明</h1><table>
+<h2 id="二、Resilience4j-的兩種隔艙實作"><a href="#二、Resilience4j-的兩種隔艙實作" class="headerlink" title="二、Resilience4j 的兩種隔艙實作"></a>二、Resilience4j 的兩種隔艙實作</h2><p>Resilience4j 提供兩種 Bulkhead 模式，底層機制各有差異，依需求選擇最合適的方式。</p>
+<h3 id="1-SemaphoreBulkhead"><a href="#1-SemaphoreBulkhead" class="headerlink" title="1. SemaphoreBulkhead"></a>1. SemaphoreBulkhead</h3><ul>
+<li><p><strong>機制</strong>：使用信號量（Semaphore）限制同時執行的執行緒數量。  </p>
+</li>
+<li><p><strong>注意</strong>：不會建立獨立執行緒池，所有執行緒由使用者原有池提供，需自行確保池大小。  </p>
+</li>
+<li><p><strong>主要設定屬性</strong>：</p>
+<table>
 <thead>
 <tr>
-<th>設定屬性</th>
+<th>屬性</th>
 <th>預設值</th>
 <th>說明</th>
 </tr>
 </thead>
 <tbody><tr>
-<td><code>failureRateThreshold</code></td>
-<td>50 (%)</td>
-<td>失敗率超過此百分比就開啟斷路器</td>
+<td><code>maxConcurrentCalls</code></td>
+<td>25</td>
+<td>允許的最大併發執行數</td>
 </tr>
 <tr>
-<td><code>slowCallRateThreshold</code></td>
-<td>100 (%)</td>
-<td>慢呼叫率超過此百分比也會開啟斷路器</td>
-</tr>
-<tr>
-<td><code>slowCallDurationThreshold</code></td>
-<td>60000 ms</td>
-<td>超過這個執行時間視為慢呼叫</td>
-</tr>
-<tr>
-<td><code>permittedNumberOfCallsInHalfOpenState</code></td>
-<td>10</td>
-<td>半開狀態下允許的最大請求次數</td>
-</tr>
-<tr>
-<td><code>maxWaitDurationInHalfOpenState</code></td>
-<td>0 ms</td>
-<td>半開狀態下的最長等待時間（0 表示無限等待）</td>
-</tr>
-<tr>
-<td><code>slidingWindowType</code></td>
-<td>COUNT_BASED</td>
-<td>COUNT_BASED：以次數統計，TIME_BASED：以時間統計</td>
-</tr>
-<tr>
-<td><code>slidingWindowSize</code></td>
-<td>100</td>
-<td>視窗大小（以次數或毫秒為單位，依視窗型態而異）</td>
-</tr>
-<tr>
-<td><code>minimumNumberOfCalls</code></td>
-<td>100</td>
-<td>視窗內最少需要多少呼叫才會判斷是否跳閘</td>
-</tr>
-<tr>
-<td><code>waitDurationInOpenState</code></td>
-<td>60000 ms</td>
-<td>OPEN 狀態多久後允許進入 HALF_OPEN</td>
-</tr>
-<tr>
-<td><code>automaticTransitionFromOpenToHalfOpenEnabled</code></td>
-<td>false</td>
-<td>是否自動切到 HALF_OPEN（true：計時自動切換，false：須等呼叫進來才切換）</td>
-</tr>
-<tr>
-<td><code>recordExceptions</code></td>
-<td>空列表</td>
-<td>指定哪些 Exception 要被記錄為失敗</td>
-</tr>
-<tr>
-<td><code>ignoreExceptions</code></td>
-<td>空列表</td>
-<td>指定哪些 Exception 要忽略，不列入計算</td>
-</tr>
-<tr>
-<td><code>recordFailurePredicate</code></td>
-<td>throwable→true</td>
-<td>自訂失敗判斷邏輯</td>
-</tr>
-<tr>
-<td><code>ignoreExceptionPredicate</code></td>
-<td>throwable→false</td>
-<td>自訂忽略判斷邏輯</td>
+<td><code>maxWaitDuration</code></td>
+<td>0</td>
+<td>當 Bulkhead 飽和時，執行緒可阻塞的最長等待時間</td>
 </tr>
 </tbody></table>
+</li>
+</ul>
+<h3 id="2-FixedThreadPoolBulkhead"><a href="#2-FixedThreadPoolBulkhead" class="headerlink" title="2. FixedThreadPoolBulkhead"></a>2. FixedThreadPoolBulkhead</h3><ul>
+<li><p><strong>機制</strong>：內建獨立執行緒池，並使用佇列（Queue）緩衝多餘請求。  </p>
+</li>
+<li><p><strong>主要設定屬性</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>屬性</th>
+<th>預設值</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>maxThreadPoolSize</code></td>
+<td><code>availableProcessors()</code></td>
+<td>執行緒池最大大小</td>
+</tr>
+<tr>
+<td><code>coreThreadPoolSize</code></td>
+<td><code>availableProcessors() - 1</code></td>
+<td>執行緒池核心大小</td>
+</tr>
+<tr>
+<td><code>queueCapacity</code></td>
+<td>100</td>
+<td>任務佇列容量</td>
+</tr>
+<tr>
+<td><code>keepAliveDuration</code></td>
+<td>20 ms</td>
+<td>超過核心執行緒數時，閒置執行緒在被回收前的最大閒置時間</td>
+</tr>
+<tr>
+<td><code>writableStackTraceEnabled</code></td>
+<td>true</td>
+<td>Bulkhead 拋出例外時是否輸出完整堆疊追蹤；<code>false</code> 時只輸出單行錯誤訊息</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
 <hr>
-<h1 id="YAML-設定範例（Spring-Boot）"><a href="#YAML-設定範例（Spring-Boot）" class="headerlink" title="YAML 設定範例（Spring Boot）"></a>YAML 設定範例（Spring Boot）</h1><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">resilience4j.circuitbreaker:</span></span><br><span class="line">  <span class="attr">configs:</span></span><br><span class="line">    <span class="attr">default:</span></span><br><span class="line">      <span class="attr">slidingWindowSize:</span> <span class="number">100</span></span><br><span class="line">      <span class="attr">permittedNumberOfCallsInHalfOpenState:</span> <span class="number">10</span></span><br><span class="line">      <span class="attr">waitDurationInOpenState:</span> <span class="number">10000</span></span><br><span class="line">      <span class="attr">failureRateThreshold:</span> <span class="number">60</span></span><br><span class="line">      <span class="attr">eventConsumerBufferSize:</span> <span class="number">10</span></span><br><span class="line">      <span class="attr">registerHealthIndicator:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">someShared:</span></span><br><span class="line">      <span class="attr">slidingWindowSize:</span> <span class="number">50</span></span><br><span class="line">      <span class="attr">permittedNumberOfCallsInHalfOpenState:</span> <span class="number">10</span></span><br><span class="line">  <span class="attr">instances:</span></span><br><span class="line">    <span class="attr">backendA:</span></span><br><span class="line">      <span class="attr">baseConfig:</span> <span class="string">default</span></span><br><span class="line">      <span class="attr">waitDurationInOpenState:</span> <span class="number">5000</span></span><br><span class="line">    <span class="attr">backendB:</span></span><br><span class="line">      <span class="attr">baseConfig:</span> <span class="string">someShared</span></span><br><span class="line">      <span class="attr">slidingWindowSize:</span> <span class="number">5</span></span><br></pre></td></tr></table></figure>
+<h2 id="三、在-Spring-Boot-中快速上手"><a href="#三、在-Spring-Boot-中快速上手" class="headerlink" title="三、在 Spring Boot 中快速上手"></a>三、在 Spring Boot 中快速上手</h2><p>與斷路器 (Circuit Breaker) 設定方式類似，透過 <code>application.yml</code>（或 <code>properties</code>）定義隔艙參數：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">resilience4j:</span></span><br><span class="line">  <span class="attr">bulkhead:</span></span><br><span class="line">    <span class="attr">configs:</span></span><br><span class="line">      <span class="attr">default:</span></span><br><span class="line">        <span class="attr">max-concurrent-calls:</span> <span class="number">10</span></span><br><span class="line">        <span class="attr">max-wait-duration:</span> <span class="string">500ms</span></span><br><span class="line">    <span class="attr">instances:</span></span><br><span class="line">      <span class="attr">bulkheadA:</span></span><br><span class="line">        <span class="attr">base-config:</span> <span class="string">default</span></span><br><span class="line">      <span class="attr">bulkheadB:</span></span><br><span class="line">        <span class="attr">base-config:</span> <span class="string">default</span></span><br><span class="line">        <span class="attr">max-concurrent-calls:</span> <span class="number">5</span></span><br></pre></td></tr></table></figure>
 
-<hr>
-<h1 id="註解與程式碼實作範例"><a href="#註解與程式碼實作範例" class="headerlink" title="註解與程式碼實作範例"></a>註解與程式碼實作範例</h1><h2 id="使用-CircuitBreaker-annotation"><a href="#使用-CircuitBreaker-annotation" class="headerlink" title="使用 @CircuitBreaker annotation"></a>使用 @CircuitBreaker annotation</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@CircuitBreaker(name = &quot;backendB&quot;, fallbackMethod = &quot;fallbackForBackendB&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">testCBBackendB</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;backendB fail&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">fallbackForBackendB</span><span class="params">(RuntimeException ex)</span> &#123;</span><br><span class="line">    log.error(<span class="string">&quot;backendB 發生錯誤：&quot;</span>, ex);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;backendB 的 fallback 回應&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在程式碼中，只要在方法上加上 <code>@Bulkhead</code> 標註，即可套用指定設定：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> io.github.resilience4j.bulkhead.annotation.Bulkhead;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Service;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BackendService</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bulkhead(name = &quot;bulkheadA&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">processTask</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// 模擬後端處理邏輯</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;backendC ok&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><strong>注意坑點</strong><br>因為 <code>@CircuitBreaker</code> 是靠 AOP 實作，所以你除了加 <code>resilience4j-spring-boot3</code> 依賴外，也必須記得加上 AOP 相關依賴：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.github.resilience4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>resilience4j-spring-boot3<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 必須加入 Spring AOP 依賴 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-aop<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
+<p>上述範例中，<code>processTask()</code> 的最大併發數量即受 <code>bulkheadA</code> 設定限制，超過時便等待或拋例外，保護系統資源不被過度占用。</p>
 <hr>
-<h2 id="使用程式碼自訂設定"><a href="#使用程式碼自訂設定" class="headerlink" title="使用程式碼自訂設定"></a>使用程式碼自訂設定</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">CircuitBreakerConfig</span> <span class="variable">circuitBreakerConfig</span> <span class="operator">=</span> CircuitBreakerConfig.custom()</span><br><span class="line">  .failureRateThreshold(<span class="number">50</span>)</span><br><span class="line">  .slowCallRateThreshold(<span class="number">50</span>)</span><br><span class="line">  .waitDurationInOpenState(Duration.ofMillis(<span class="number">1000</span>))</span><br><span class="line">  .slowCallDurationThreshold(Duration.ofSeconds(<span class="number">2</span>))</span><br><span class="line">  .permittedNumberOfCallsInHalfOpenState(<span class="number">3</span>)</span><br><span class="line">  .minimumNumberOfCalls(<span class="number">10</span>)</span><br><span class="line">  .slidingWindowType(SlidingWindowType.TIME_BASED)</span><br><span class="line">  .slidingWindowSize(<span class="number">5</span>)</span><br><span class="line">  .recordException(e -&gt; INTERNAL_SERVER_ERROR.equals(getResponse().getStatus()))</span><br><span class="line">  .recordExceptions(IOException.class, TimeoutException.class)</span><br><span class="line">  .ignoreExceptions(BusinessException.class, OtherBusinessException.class)</span><br><span class="line">  .build();</span><br><span class="line"></span><br><span class="line"><span class="type">CircuitBreakerRegistry</span> <span class="variable">circuitBreakerRegistry</span> <span class="operator">=</span> CircuitBreakerRegistry.of(circuitBreakerConfig);</span><br><span class="line"></span><br><span class="line"><span class="type">CircuitBreaker</span> <span class="variable">circuitBreakerWithDefaultConfig</span> <span class="operator">=</span> circuitBreakerRegistry.circuitBreaker(<span class="string">&quot;name1&quot;</span>);</span><br><span class="line"><span class="type">CircuitBreaker</span> <span class="variable">circuitBreakerWithCustomConfig</span> <span class="operator">=</span> circuitBreakerRegistry.circuitBreaker(<span class="string">&quot;name2&quot;</span>, circuitBreakerConfig);</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h1 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h1><p>斷路器是微服務穩定性設計不可或缺的關鍵元件。正確理解狀態切換邏輯、配置核心參數，以及搭配 Bulkhead 等其他保護機制，可有效提升整體系統的容錯力。<br>實作時務必根據自身服務特性調整參數，並留意依賴關係（如 AOP 必須有），才能讓 CircuitBreaker 發揮最大效益！</p>
-<hr>
-<p>如果你有相關的踩坑經驗或參數最佳化建議，歡迎留言一起討論！</p>
-</div></article></div></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="/tech/img/head.png" alt="LujJay"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">LujJay</p><p class="is-size-6 is-block">Java 後端工程師</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>台灣 Taiwan</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">Posts</p><a href="/tech/archives/"><p class="title">2</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Categories</p><a href="/tech/categories/"><p class="title">0</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Tags</p><a href="/tech/tags/"><p class="title">5</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/jay841224" target="_blank" rel="me noopener">Follow</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Github" href="https://github.com/jay841224"><i class="fab fa-github"></i></a></div></div></div><!--!--><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">Links</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><!--!--><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">Recents</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2025-05-18T11:35:48.000Z">2025-05-18</time></p><p class="title"><a href="/tech/2025/05/18/Java-CircuitBreaker/">Java CircuitBreaker 斷路器機制全解析與實戰</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2025-05-14T02:37:12.277Z">2025-05-14</time></p><p class="title"><a href="/tech/2025/05/14/hello-world/">Hello World</a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">Archives</h3><ul class="menu-list"><li><a class="level is-mobile" href="/tech/archives/2025/05/"><span class="level-start"><span class="level-item">May 2025</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">Tags</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tech/tags/Java/"><span class="tag">Java</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tech/tags/Resilience4j/"><span class="tag">Resilience4j</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tech/tags/Spring-Boot/"><span class="tag">Spring Boot</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tech/tags/%E5%BE%AE%E6%9C%8D%E5%8B%99/"><span class="tag">微服務</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tech/tags/%E6%96%B7%E8%B7%AF%E5%99%A8/"><span class="tag">斷路器</span><span class="tag">1</span></a></div></div></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">Subscribe for updates</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="Subscribe"></div></div></form></div></div></div><div class="card widget"><div class="card-content"><div class="notification is-danger">You need to set <code>client_id</code> and <code>slot_id</code> to show this AD unit. Please set it in <code>_config.yml</code>.</div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">follow.it</h3><form action="" method="post" target="_blank"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="Subscribe"></div></div></form></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/tech/"><img src="/tech/img/logo.svg" alt="Hexo" height="28"></a><p class="is-size-7"><span>&copy; 2025 John Doe</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p><p class="is-size-7">© 2019</p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("en");</script><script>var IcarusThemeSettings = {
+<p>透過隔艙（Bulkhead）機制，我們能有效隔離故障、限制併發並保護關鍵資源，搭配斷路器與限流器，為微服務架構注入更強韌的穩定性。希望這篇筆記能幫助你快速掌握 Resilience4j 的 Bulkhead 實作，並靈活運用於專案中！</p>
+</div></article></div></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="/tech/img/head.png" alt="LujJay"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">LujJay</p><p class="is-size-6 is-block">Java 後端工程師</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>台灣 Taiwan</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">Posts</p><a href="/tech/archives/"><p class="title">3</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Categories</p><a href="/tech/categories/"><p class="title">0</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Tags</p><a href="/tech/tags/"><p class="title">6</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/jay841224" target="_blank" rel="me noopener">Follow</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Github" href="https://github.com/jay841224"><i class="fab fa-github"></i></a></div></div></div><!--!--><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">Links</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><!--!--><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">Recents</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2025-05-20T15:00:59.000Z">2025-05-20</time></p><p class="title"><a href="/tech/2025/05/20/Bulkhead/">Bulkhead</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2025-05-18T11:35:48.000Z">2025-05-18</time></p><p class="title"><a href="/tech/2025/05/18/Java-CircuitBreaker/">Resilience4j Bulkhead 隔艙機制全解析與實戰</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2025-05-14T02:37:12.277Z">2025-05-14</time></p><p class="title"><a href="/tech/2025/05/14/hello-world/">Hello World</a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">Archives</h3><ul class="menu-list"><li><a class="level is-mobile" href="/tech/archives/2025/05/"><span class="level-start"><span class="level-item">May 2025</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">Tags</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tech/tags/Bulkhead/"><span class="tag">Bulkhead</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tech/tags/Java/"><span class="tag">Java</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tech/tags/Resilience4j/"><span class="tag">Resilience4j</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tech/tags/Spring-Boot/"><span class="tag">Spring Boot</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tech/tags/%E5%BE%AE%E6%9C%8D%E5%8B%99/"><span class="tag">微服務</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tech/tags/%E9%9A%94%E8%89%99/"><span class="tag">隔艙</span><span class="tag">1</span></a></div></div></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">Subscribe for updates</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="Subscribe"></div></div></form></div></div></div><div class="card widget"><div class="card-content"><div class="notification is-danger">You need to set <code>client_id</code> and <code>slot_id</code> to show this AD unit. Please set it in <code>_config.yml</code>.</div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">follow.it</h3><form action="" method="post" target="_blank"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="Subscribe"></div></div></form></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/tech/"><img src="/tech/img/logo.svg" alt="Hexo" height="28"></a><p class="is-size-7"><span>&copy; 2025 John Doe</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p><p class="is-size-7">© 2019</p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("en");</script><script>var IcarusThemeSettings = {
             article: {
                 highlight: {
                     clipboard: true,

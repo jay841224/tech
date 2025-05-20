@@ -1,8 +1,10 @@
 https://jay841224.github.io/2025/05/18/Java-CircuitBreaker/
+https://jay841224.github.io/2025/05/20/Bulkhead/
 https://jay841224.github.io/2025/05/14/hello-world/
 https://jay841224.github.io/
 https://jay841224.github.io/tags/Java/
 https://jay841224.github.io/tags/Spring-Boot/
 https://jay841224.github.io/tags/Resilience4j/
 https://jay841224.github.io/tags/%E5%BE%AE%E6%9C%8D%E5%8B%99/
-https://jay841224.github.io/tags/%E6%96%B7%E8%B7%AF%E5%99%A8/
+https://jay841224.github.io/tags/%E9%9A%94%E8%89%99/
+https://jay841224.github.io/tags/Bulkhead/
