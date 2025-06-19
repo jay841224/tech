@@ -1,5 +1,4 @@
 https://jay841224.github.io/tech/2025/05/18/Java-CircuitBreaker/
-https://jay841224.github.io/tech/2025/05/20/Bulkhead/
 https://jay841224.github.io/tech/2025/05/14/hello-world/
 https://jay841224.github.io/tech
 https://jay841224.github.io/tech/tags/Java/
