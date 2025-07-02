@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Kafka 消費者慢對 Kafka 會有什麼影響</title>
+</head>
+<body>
+<h1>Kafka 消費者慢對 Kafka 會有什麼影響</h1>
+<h2>Lag 增大</h2>
+<ul>
+<li>表示 Consumer 來不及處理，需要注意原因</li>
+<li>可能導致儲存壓力</li>
+</ul>
+<h2>觸發 Rebalance</h2>
+<p>Rebalance 會讓工作短暫暫停，進而影響效能</p>
+<ul>
+<li>Broker 對每個 Consumer 都有心跳機制，由 <code>session.timeout.ms</code> 控制</li>
+<li>Consumer 兩次 poll 間超過 <code>max.poll.interval.ms</code> 會觸發 Rebalance
+<ul><li>增加 <code>max.poll.interval.ms</code> 的時間</li></ul></li>
+</ul>
+<h2>數據過期</h2>
+<ul>
+<li>等待太久沒被處理，數據過期就會被丟棄， <code>retention.ms</code> 預設為 7 天</li>
+</ul>
+<h2>優化建議</h2>
+<ol>
+<li>增加同一個 group 的實例數，但注意 Partition 數量限制</li>
+<li>優化消費者效能</li>
+<li>調整 Kafka 設定，延長過期時間</li>
+</ol>
+</body>
+</html>
